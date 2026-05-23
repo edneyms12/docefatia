@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Lançar Venda</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f0e0c;
+    --surface: #1a1814;
+    --surface2: #242018;
+    --border: #2e2a22;
+    --accent: #f5c842;
+    --accent2: #e8824a;
+    --text: #f0ece4;
+    --text-muted: #7a7468;
+    --success: #4caf7d;
+    --danger: #e05a5a;
+    --radius: 14px;
+    --radius-sm: 8px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  /* ---- LOGIN ---- */
+  #login-screen {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 24px;
+    background: radial-gradient(ellipse at 50% 0%, #2a2010 0%, var(--bg) 70%);
+  }
+
+  .login-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 2rem;
+    color: var(--accent);
+    letter-spacing: -1px;
+    margin-bottom: 6px;
+  }
+
+  .login-sub {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-bottom: 40px;
+  }
+
+  .login-box {
+    width: 100%;
+    max-width: 360px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+  }
+
+  .login-box h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--text);
+  }
+
+  /* ---- APP ---- */
+  #app { display: none; }
+
+  .header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .header-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--accent);
+  }
+
+  .btn-logout {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    padding: 6px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .content { padding: 20px; max-width: 520px; margin: 0 auto; }
+
+  /* ---- INPUTS ---- */
+  .field { margin-bottom: 16px; }
+
+  label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 7px;
+  }
+
+  input[type="text"],
+  input[type="password"],
+  input[type="number"],
+  select, textarea {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    padding: 13px 14px;
+    outline: none;
+    transition: border-color 0.2s;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--accent);
+  }
+
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237a7468' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 40px;
+  }
+
+  /* ---- TOGGLE TIPO ---- */
+  .toggle-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .toggle-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text-muted);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    padding: 13px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.15s;
+  }
+
+  .toggle-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #0f0e0c;
+    font-weight: 600;
+  }
+
+  /* ---- PRODUTOS ---- */
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 24px 0 12px;
+  }
+
+  .categoria-label {
+    font-size: 0.7rem;
+    color: var(--accent2);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    margin: 16px 0 8px;
+  }
+
+  .produto-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    margin-bottom: 6px;
+    transition: border-color 0.15s;
+  }
+
+  .produto-item.selected {
+    border-color: var(--accent);
+    background: #1f1c12;
+  }
+
+  .produto-nome {
+    font-size: 0.95rem;
+    color: var(--text);
+    flex: 1;
+  }
+
+  .produto-preco {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-right: 12px;
+  }
+
+  .qty-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .qty-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    transition: all 0.15s;
+  }
+
+  .qty-btn:active { transform: scale(0.9); }
+  .qty-btn.plus { border-color: var(--accent); color: var(--accent); }
+
+  .qty-value {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    min-width: 20px;
+    text-align: center;
+    color: var(--text);
+  }
+
+  /* ---- RESUMO ---- */
+  .resumo-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    margin: 20px 0;
+  }
+
+  .resumo-linha {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    padding: 4px 0;
+  }
+
+  .resumo-total {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--accent);
+    border-top: 1px solid var(--border);
+    padding-top: 10px;
+    margin-top: 8px;
+  }
+
+  /* ---- BOTÕES ---- */
+  .btn-primary {
+    width: 100%;
+    background: var(--accent);
+    border: none;
+    border-radius: var(--radius-sm);
+    color: #0f0e0c;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 16px;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.1s;
+    letter-spacing: 0.02em;
+  }
+
+  .btn-primary:active { transform: scale(0.98); }
+  .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* ---- CLIENTE (delivery) ---- */
+  #bloco-cliente { display: none; }
+
+  /* ---- TOAST ---- */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--success);
+    color: #fff;
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 14px 24px;
+    border-radius: 30px;
+    z-index: 100;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    white-space: nowrap;
+  }
+
+  .toast.show { transform: translateX(-50%) translateY(0); }
+  .toast.error { background: var(--danger); }
+
+  /* ---- LOADING ---- */
+  .spinner {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(0,0,0,0.2);
+    border-top-color: #0f0e0c;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .pb { padding-bottom: 40px; }
+</style>
+</head>
+<body>
+
+<!-- ========== LOGIN ========== -->
+<div id="login-screen">
+  <div class="login-logo">🍰 Doceria</div>
+  <div class="login-sub">Sistema de Gestão</div>
+  <div class="login-box">
+    <h2>Entrar</h2>
+    <div class="field">
+      <label>Usuário</label>
+      <input type="text" id="login-user" placeholder="seu usuário" autocomplete="username">
+    </div>
+    <div class="field">
+      <label>Senha</label>
+      <input type="password" id="login-pass" placeholder="••••••••" autocomplete="current-password">
+    </div>
+    <div style="margin-top:20px">
+      <button class="btn-primary" onclick="fazerLogin()">Entrar</button>
+    </div>
+    <div id="login-erro" style="color:var(--danger);font-size:0.85rem;margin-top:12px;text-align:center;display:none;">
+      Usuário ou senha incorretos.
+    </div>
+  </div>
+</div>
+
+<!-- ========== APP ========== -->
+<div id="app">
+  <div class="header">
+    <div class="header-title">🍰 Lançar Venda</div>
+    <button class="btn-logout" onclick="logout()">Sair</button>
+  </div>
+
+  <div class="content">
+
+    <!-- TIPO DE VENDA -->
+    <div class="field">
+      <label>Tipo de Venda</label>
+      <div class="toggle-group">
+        <button class="toggle-btn active" id="btn-balcao" onclick="setTipo('balcao')">🏪 Balcão</button>
+        <button class="toggle-btn" id="btn-delivery" onclick="setTipo('delivery')">🛵 Delivery</button>
+      </div>
+    </div>
+
+    <!-- FORMA DE PAGAMENTO -->
+    <div class="field">
+      <label>Forma de Pagamento</label>
+      <select id="forma-pagamento">
+        <option value="">Selecione...</option>
+        <option value="pix">PIX</option>
+        <option value="dinheiro">Dinheiro</option>
+        <option value="cartao_debito">Cartão Débito</option>
+        <option value="cartao_credito">Cartão Crédito</option>
+        <option value="fiado">Fiado</option>
+      </select>
+    </div>
+
+    <!-- CLIENTE (apenas delivery) -->
+    <div id="bloco-cliente">
+      <div class="field">
+        <label>Nome do Cliente</label>
+        <input type="text" id="cliente-nome" placeholder="Nome completo">
+      </div>
+      <div class="field">
+        <label>Telefone</label>
+        <input type="text" id="cliente-tel" placeholder="(92) 99999-9999">
+      </div>
+      <div class="field">
+        <label>Endereço</label>
+        <input type="text" id="cliente-end" placeholder="Rua, número, bairro">
+      </div>
+      <div class="field">
+        <label>Taxa de Entrega (R$)</label>
+        <input type="number" id="taxa-entrega" placeholder="0.00" min="0" step="0.50" value="0">
+      </div>
+    </div>
+
+    <!-- PRODUTOS -->
+    <div class="section-title">Produtos</div>
+
+    <div class="categoria-label">🎂 Bolo</div>
+    <div id="cat-bolo"></div>
+
+    <div class="categoria-label">🍮 Pudim</div>
+    <div id="cat-pudim"></div>
+
+    <div class="categoria-label">🥤 Copo Supremo</div>
+    <div id="cat-copo"></div>
+
+    <div class="categoria-label">🍦 Picolé Artesanal</div>
+    <div id="cat-picole"></div>
+
+    <!-- OBSERVAÇÕES -->
+    <div class="field" style="margin-top:20px">
+      <label>Observações (opcional)</label>
+      <textarea id="obs" rows="2" placeholder="Ex: sem açúcar, embrulhar para presente..."></textarea>
+    </div>
+
+    <!-- RESUMO -->
+    <div class="resumo-box" id="resumo-box" style="display:none">
+      <div id="resumo-itens"></div>
+      <div class="resumo-total">
+        <span>Total</span>
+        <span id="resumo-total-valor">R$ 0,00</span>
+      </div>
+    </div>
+
+    <!-- BOTÃO -->
+    <div class="pb">
+      <button class="btn-primary" id="btn-enviar" onclick="enviarVenda()">Registrar Venda</button>
+    </div>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ============================================================
+// CONFIGURAÇÃO — altere aqui
+// ============================================================
+const CONFIG = {
+  usuario: "admin",
+  senha: "doceria2024",
+  webhookVenda: "https://intelly01-n8n.rywggw.easypanel.host/webhook/lancar-venda"
+};
+
+// ============================================================
+// CARDÁPIO
+// ============================================================
+const cardapio = [
+  { id: "p1", nome: "Bolo Supremo de Chocolate", preco: 15.00, cat: "bolo" },
+  { id: "p2", nome: "Bolo Supremo de Leite",      preco: 15.00, cat: "bolo" },
+  { id: "p3", nome: "Pudim Cremoso de Leite",     preco: 10.00, cat: "pudim" },
+  { id: "p4", nome: "Ninho com Morango",           preco: 20.00, cat: "copo" },
+  { id: "p5", nome: "Ouro Branco",                 preco: 20.00, cat: "copo" },
+  { id: "p6", nome: "Picolé - Ninho com Nutella", preco: 12.00, cat: "picole" },
+  { id: "p7", nome: "Picolé - Mousse de Morango", preco: 12.00, cat: "picole" },
+  { id: "p8", nome: "Picolé - Mousse de Maracujá",preco: 12.00, cat: "picole" },
+  { id: "p9", nome: "Picolé - Oreo",              preco: 12.00, cat: "picole" },
+];
+
+const qtds = {};
+cardapio.forEach(p => qtds[p.id] = 0);
+
+let tipoVenda = "balcao";
+
+// ============================================================
+// LOGIN
+// ============================================================
+function fazerLogin() {
+  const u = document.getElementById("login-user").value.trim();
+  const s = document.getElementById("login-pass").value;
+  if (u === CONFIG.usuario && s === CONFIG.senha) {
+    sessionStorage.setItem("auth", "ok");
+    document.getElementById("login-screen").style.display = "none";
+    document.getElementById("app").style.display = "block";
+    document.getElementById("login-erro").style.display = "none";
+  } else {
+    document.getElementById("login-erro").style.display = "block";
+  }
+}
+
+function logout() {
+  sessionStorage.removeItem("auth");
+  location.reload();
+}
+
+// Enter no login
+document.getElementById("login-pass").addEventListener("keydown", e => {
+  if (e.key === "Enter") fazerLogin();
+});
+
+// Checa sessão
+if (sessionStorage.getItem("auth") === "ok") {
+  document.getElementById("login-screen").style.display = "none";
+  document.getElementById("app").style.display = "block";
+}
+
+// ============================================================
+// TIPO DE VENDA
+// ============================================================
+function setTipo(tipo) {
+  tipoVenda = tipo;
+  document.getElementById("btn-balcao").classList.toggle("active", tipo === "balcao");
+  document.getElementById("btn-delivery").classList.toggle("active", tipo === "delivery");
+  document.getElementById("bloco-cliente").style.display = tipo === "delivery" ? "block" : "none";
+}
+
+// ============================================================
+// RENDERIZAR PRODUTOS
+// ============================================================
+function renderProdutos() {
+  const cats = { bolo: "cat-bolo", pudim: "cat-pudim", copo: "cat-copo", picole: "cat-picole" };
+  Object.entries(cats).forEach(([cat, elId]) => {
+    const el = document.getElementById(elId);
+    el.innerHTML = "";
+    cardapio.filter(p => p.cat === cat).forEach(p => {
+      el.innerHTML += `
+        <div class="produto-item" id="item-${p.id}">
+          <div>
+            <div class="produto-nome">${p.nome}</div>
+            <div class="produto-preco">R$ ${p.preco.toFixed(2).replace(".", ",")}</div>
+          </div>
+          <div class="qty-control">
+            <button class="qty-btn minus" onclick="mudarQty('${p.id}', -1)">−</button>
+            <span class="qty-value" id="qty-${p.id}">0</span>
+            <button class="qty-btn plus" onclick="mudarQty('${p.id}', 1)">+</button>
+          </div>
+        </div>`;
+    });
+  });
+}
+
+function mudarQty(id, delta) {
+  qtds[id] = Math.max(0, qtds[id] + delta);
+  document.getElementById("qty-" + id).textContent = qtds[id];
+  const item = document.getElementById("item-" + id);
+  item.classList.toggle("selected", qtds[id] > 0);
+  atualizarResumo();
+}
+
+function atualizarResumo() {
+  const itens = cardapio.filter(p => qtds[p.id] > 0);
+  const taxa = tipoVenda === "delivery" ? parseFloat(document.getElementById("taxa-entrega").value || 0) : 0;
+  const subtotal = itens.reduce((s, p) => s + p.preco * qtds[p.id], 0);
+  const total = subtotal + taxa;
+
+  const box = document.getElementById("resumo-box");
+  if (itens.length === 0) { box.style.display = "none"; return; }
+
+  box.style.display = "block";
+  let html = "";
+  itens.forEach(p => {
+    html += `<div class="resumo-linha"><span>${qtds[p.id]}x ${p.nome}</span><span>R$ ${(p.preco * qtds[p.id]).toFixed(2).replace(".", ",")}</span></div>`;
+  });
+  if (taxa > 0) html += `<div class="resumo-linha"><span>Taxa de entrega</span><span>R$ ${taxa.toFixed(2).replace(".", ",")}</span></div>`;
+  document.getElementById("resumo-itens").innerHTML = html;
+  document.getElementById("resumo-total-valor").textContent = "R$ " + total.toFixed(2).replace(".", ",");
+}
+
+document.addEventListener("input", e => {
+  if (e.target.id === "taxa-entrega") atualizarResumo();
+});
+
+// ============================================================
+// ENVIAR VENDA
+// ============================================================
+async function enviarVenda() {
+  const forma = document.getElementById("forma-pagamento").value;
+  const itens = cardapio.filter(p => qtds[p.id] > 0);
+
+  if (!forma) { showToast("Selecione a forma de pagamento.", true); return; }
+  if (itens.length === 0) { showToast("Adicione ao menos um produto.", true); return; }
+
+  if (tipoVenda === "delivery") {
+    const nome = document.getElementById("cliente-nome").value.trim();
+    const end  = document.getElementById("cliente-end").value.trim();
+    if (!nome || !end) { showToast("Informe nome e endereço do cliente.", true); return; }
+  }
+
+  const taxa = tipoVenda === "delivery" ? parseFloat(document.getElementById("taxa-entrega").value || 0) : 0;
+  const subtotal = itens.reduce((s, p) => s + p.preco * qtds[p.id], 0);
+
+  const payload = {
+    tipo: tipoVenda,
+    forma_pagamento: forma,
+    taxa_entrega: taxa,
+    total: subtotal + taxa,
+    observacoes: document.getElementById("obs").value.trim(),
+    vendido_em: new Date().toISOString(),
+    itens: itens.map(p => ({
+      produto_id: p.id,
+      nome: p.nome,
+      quantidade: qtds[p.id],
+      preco_unitario: p.preco,
+      subtotal: p.preco * qtds[p.id]
+    })),
+    cliente: tipoVenda === "delivery" ? {
+      nome: document.getElementById("cliente-nome").value.trim(),
+      telefone: document.getElementById("cliente-tel").value.trim(),
+      endereco: document.getElementById("cliente-end").value.trim()
+    } : null
+  };
+
+  const btn = document.getElementById("btn-enviar");
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Registrando...';
+
+  try {
+    const res = await fetch(CONFIG.webhookVenda, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    if (res.ok) {
+      showToast("✅ Venda registrada!");
+      resetarFormulario();
+    } else {
+      showToast("Erro ao registrar. Tente novamente.", true);
+    }
+  } catch (e) {
+    showToast("Erro de conexão. Verifique o n8n.", true);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = "Registrar Venda";
+  }
+}
+
+function resetarFormulario() {
+  cardapio.forEach(p => { qtds[p.id] = 0; });
+  document.getElementById("forma-pagamento").value = "";
+  document.getElementById("obs").value = "";
+  if (tipoVenda === "delivery") {
+    document.getElementById("cliente-nome").value = "";
+    document.getElementById("cliente-tel").value = "";
+    document.getElementById("cliente-end").value = "";
+    document.getElementById("taxa-entrega").value = "0";
+  }
+  renderProdutos();
+  document.getElementById("resumo-box").style.display = "none";
+}
+
+// ============================================================
+// TOAST
+// ============================================================
+function showToast(msg, isError = false) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.className = "toast" + (isError ? " error" : "");
+  void t.offsetWidth;
+  t.classList.add("show");
+  setTimeout(() => t.classList.remove("show"), 3000);
+}
+
+// ============================================================
+// INIT
+// ============================================================
+renderProdutos();
+</script>
+</body>
+</html>
