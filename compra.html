@@ -3,212 +3,82 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Registrar Compra</title>
+<title>Registrar Compra - Doce Fatia</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0f0e0c;
-    --surface: #1a1814;
-    --surface2: #242018;
-    --border: #2e2a22;
-    --accent: #e8824a;
-    --text: #f0ece4;
-    --text-muted: #7a7468;
-    --success: #4caf7d;
-    --danger: #e05a5a;
-    --radius: 14px;
-    --radius-sm: 8px;
+    --bg: #0f0e0c; --surface: #1a1814; --surface2: #242018; --border: #2e2a22;
+    --accent: #e8824a; --accent2: #f5c842; --text: #f0ece4; --text-muted: #7a7468;
+    --success: #4caf7d; --danger: #e05a5a; --radius: 14px; --radius-sm: 8px;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    min-height: 100vh;
-  }
-
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; }
   #login-screen {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 32px 24px;
+    min-height: 100vh; display: flex; flex-direction: column; align-items: center;
+    justify-content: center; padding: 32px 24px;
     background: radial-gradient(ellipse at 50% 0%, #251a10 0%, var(--bg) 70%);
   }
-
-  .login-logo {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 2rem;
-    color: var(--accent);
-    letter-spacing: -1px;
-    margin-bottom: 6px;
-  }
-
+  .login-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 2rem; color: var(--accent); letter-spacing: -1px; margin-bottom: 6px; }
   .login-sub { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 40px; }
-
-  .login-box {
-    width: 100%;
-    max-width: 360px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 28px 24px;
-  }
-
-  .login-box h2 {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 20px;
-  }
-
+  .login-box { width: 100%; max-width: 360px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px 24px; }
+  .login-box h2 { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 600; margin-bottom: 20px; }
   #app { display: none; }
-
-  .header {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 16px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-  }
-
-  .header-title {
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 1.1rem;
-    color: var(--accent);
-  }
-
-  .btn-logout {
-    background: none;
-    border: 1px solid var(--border);
-    color: var(--text-muted);
-    font-size: 0.75rem;
-    padding: 6px 12px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-  }
-
+  .header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10; }
+  .header-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--accent); }
+  .btn-logout { background: none; border: 1px solid var(--border); color: var(--text-muted); font-size: 0.75rem; padding: 6px 12px; border-radius: 20px; cursor: pointer; font-family: 'DM Sans', sans-serif; }
   .content { padding: 20px; max-width: 520px; margin: 0 auto; }
-
   .field { margin-bottom: 16px; }
-
-  label {
-    display: block;
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 7px;
+  label { display: block; font-size: 0.75rem; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 7px; }
+  input[type="text"], input[type="password"], input[type="number"], select, textarea {
+    width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm);
+    color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 1rem; padding: 13px 14px;
+    outline: none; transition: border-color 0.2s; appearance: none; -webkit-appearance: none;
   }
-
-  input, select, textarea {
-    width: 100%;
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 1rem;
-    padding: 13px 14px;
-    outline: none;
-    transition: border-color 0.2s;
-    appearance: none;
-    -webkit-appearance: none;
-  }
-
   input:focus, select:focus, textarea:focus { border-color: var(--accent); }
-
   select {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237a7468' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 14px center;
-    padding-right: 40px;
+    background-repeat: no-repeat; background-position: right 14px center; padding-right: 40px;
   }
-
-  .valor-display {
-    font-family: 'Syne', sans-serif;
-    font-size: 2rem;
-    font-weight: 800;
-    color: var(--accent);
-    text-align: center;
-    padding: 20px 0 8px;
-    letter-spacing: -1px;
-  }
-
-  .btn-primary {
-    width: 100%;
-    background: var(--accent);
-    border: none;
-    border-radius: var(--radius-sm);
-    color: #fff;
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 1rem;
-    padding: 16px;
-    cursor: pointer;
-    transition: opacity 0.2s, transform 0.1s;
-    margin-top: 8px;
-  }
-
+  .section-header { display: flex; align-items: center; justify-content: space-between; margin: 24px 0 12px; cursor: pointer; user-select: none; }
+  .section-title { font-family: 'Syne', sans-serif; font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+  .section-toggle { color: var(--text-muted); font-size: 1.2rem; transition: transform 0.2s; }
+  .section-toggle.open { transform: rotate(180deg); }
+  .section-body { display: none; }
+  .section-body.open { display: block; }
+  .item-row { display: flex; align-items: center; gap: 10px; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 12px; margin-bottom: 6px; transition: border-color 0.15s; }
+  .item-row.checked { border-color: var(--accent); background: #1f1a12; }
+  .item-check { width: 20px; height: 20px; border-radius: 4px; border: 1.5px solid var(--border); background: var(--surface); cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.15s; }
+  .item-check.checked { background: var(--accent); border-color: var(--accent); }
+  .item-check.checked::after { content: '✓'; color: #fff; font-size: 0.75rem; font-weight: 700; }
+  .item-nome { flex: 1; font-size: 0.9rem; color: var(--text); }
+  .item-inputs { display: none; gap: 6px; align-items: center; }
+  .item-inputs.visible { display: flex; }
+  .item-inputs input { width: 70px; padding: 6px 8px; font-size: 0.85rem; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; color: var(--text); text-align: center; }
+  .item-inputs input:focus { border-color: var(--accent); }
+  .input-label { font-size: 0.7rem; color: var(--text-muted); white-space: nowrap; }
+  .outros-item { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px; margin-bottom: 8px; position: relative; }
+  .outros-item .remove-btn { position: absolute; top: 10px; right: 10px; background: none; border: none; color: var(--danger); cursor: pointer; font-size: 1.1rem; padding: 0; }
+  .outros-grid { display: grid; grid-template-columns: 1fr 80px 80px; gap: 8px; margin-top: 8px; }
+  .btn-add-outro { width: 100%; background: none; border: 1px dashed var(--border); border-radius: var(--radius-sm); color: var(--text-muted); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; padding: 12px; cursor: pointer; transition: border-color 0.2s; margin-top: 4px; }
+  .btn-add-outro:hover { border-color: var(--accent); color: var(--accent); }
+  .resumo-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin: 20px 0; }
+  .resumo-linha { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-muted); padding: 3px 0; }
+  .resumo-total { display: flex; justify-content: space-between; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.3rem; color: var(--accent); border-top: 1px solid var(--border); padding-top: 10px; margin-top: 8px; }
+  .btn-primary { width: 100%; background: var(--accent); border: none; border-radius: var(--radius-sm); color: #fff; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; padding: 16px; cursor: pointer; transition: opacity 0.2s, transform 0.1s; }
   .btn-primary:active { transform: scale(0.98); }
   .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
-
-  .spinner {
-    display: inline-block;
-    width: 18px; height: 18px;
-    border: 2px solid rgba(255,255,255,0.3);
-    border-top-color: #fff;
-    border-radius: 50%;
-    animation: spin 0.7s linear infinite;
-    vertical-align: middle;
-    margin-right: 8px;
-  }
-
+  .spinner { display: inline-block; width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; margin-right: 8px; }
   @keyframes spin { to { transform: rotate(360deg); } }
-
-  .toast {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%) translateY(80px);
-    background: var(--success);
-    color: #fff;
-    font-family: 'Syne', sans-serif;
-    font-weight: 600;
-    font-size: 0.9rem;
-    padding: 14px 24px;
-    border-radius: 30px;
-    z-index: 100;
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    white-space: nowrap;
-  }
-
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--success); color: #fff; font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.9rem; padding: 14px 24px; border-radius: 30px; z-index: 100; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); white-space: nowrap; }
   .toast.show { transform: translateX(-50%) translateY(0); }
   .toast.error { background: var(--danger); }
-
+  .divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
   .pb { padding-bottom: 40px; }
-
-  .divider {
-    border: none;
-    border-top: 1px solid var(--border);
-    margin: 20px 0;
-  }
+  .badge-count { background: var(--accent); color: #fff; font-size: 0.65rem; font-weight: 700; padding: 2px 7px; border-radius: 10px; font-family: 'Syne', sans-serif; }
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
 <div id="login-screen">
   <div class="login-logo">🛒 Compras</div>
   <div class="login-sub">Registrar Saída</div>
@@ -225,50 +95,58 @@
     <div style="margin-top:20px">
       <button class="btn-primary" onclick="fazerLogin()">Entrar</button>
     </div>
-    <div id="login-erro" style="color:var(--danger);font-size:0.85rem;margin-top:12px;text-align:center;display:none;">
-      Usuário ou senha incorretos.
-    </div>
+    <div id="login-erro" style="color:var(--danger);font-size:0.85rem;margin-top:12px;text-align:center;display:none;">Usuário ou senha incorretos.</div>
   </div>
 </div>
 
-<!-- APP -->
 <div id="app">
   <div class="header">
     <div class="header-title">🛒 Registrar Compra</div>
     <button class="btn-logout" onclick="logout()">Sair</button>
   </div>
-
   <div class="content">
-
-    <!-- VALOR -->
     <div class="field">
-      <label>Valor Gasto (R$)</label>
-      <input type="number" id="valor" placeholder="0,00" min="0" step="0.01"
-        oninput="atualizarValor()">
-      <div class="valor-display" id="valor-display">R$ 0,00</div>
+      <label>Fornecedor</label>
+      <input type="text" id="fornecedor" placeholder="Ex: Atacadão, Mercado Central...">
+    </div>
+    <div class="field">
+      <label>Data da Compra</label>
+      <input type="date" id="data-compra">
+    </div>
+    <hr class="divider">
+
+    <div class="section-header" onclick="toggleSection('insumos')">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span class="section-title">🧈 Insumos</span>
+        <span class="badge-count" id="badge-insumos" style="display:none">0</span>
+      </div>
+      <span class="section-toggle open" id="toggle-insumos">▾</span>
+    </div>
+    <div class="section-body open" id="section-insumos"></div>
+
+    <div class="section-header" onclick="toggleSection('embalagens')">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span class="section-title">📦 Embalagens</span>
+        <span class="badge-count" id="badge-embalagens" style="display:none">0</span>
+      </div>
+      <span class="section-toggle" id="toggle-embalagens">▾</span>
+    </div>
+    <div class="section-body" id="section-embalagens"></div>
+
+    <div class="section-header" onclick="toggleSection('outros')">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span class="section-title">📋 Outros</span>
+        <span class="badge-count" id="badge-outros" style="display:none">0</span>
+      </div>
+      <span class="section-toggle" id="toggle-outros">▾</span>
+    </div>
+    <div class="section-body" id="section-outros">
+      <div id="outros-lista"></div>
+      <button class="btn-add-outro" onclick="adicionarOutro()">+ Adicionar item avulso</button>
     </div>
 
     <hr class="divider">
 
-    <!-- DESCRIÇÃO -->
-    <div class="field">
-      <label>O que foi comprado?</label>
-      <input type="text" id="descricao" placeholder="Ex: Farinha de trigo 5kg, Caixas para bolo...">
-    </div>
-
-    <!-- CATEGORIA -->
-    <div class="field">
-      <label>Categoria</label>
-      <select id="categoria">
-        <option value="">Selecione...</option>
-        <option value="ingrediente">🧈 Ingrediente</option>
-        <option value="embalagem">📦 Embalagem</option>
-        <option value="equipamento">🔧 Equipamento</option>
-        <option value="outros">📋 Outros</option>
-      </select>
-    </div>
-
-    <!-- FORMA DE PAGAMENTO -->
     <div class="field">
       <label>Forma de Pagamento</label>
       <select id="forma-pagamento">
@@ -281,29 +159,17 @@
       </select>
     </div>
 
-    <!-- FORNECEDOR -->
-    <div class="field">
-      <label>Fornecedor (opcional)</label>
-      <input type="text" id="fornecedor" placeholder="Ex: Mercado Central, Atacadão...">
+    <div class="resumo-box" id="resumo-box" style="display:none">
+      <div id="resumo-itens"></div>
+      <div class="resumo-total">
+        <span>Total</span>
+        <span id="resumo-total-valor">R$ 0,00</span>
+      </div>
     </div>
 
-    <!-- DATA -->
-    <div class="field">
-      <label>Data da Compra</label>
-      <input type="date" id="data-compra">
-    </div>
-
-    <!-- OBSERVAÇÕES -->
-    <div class="field">
-      <label>Observações (opcional)</label>
-      <textarea id="obs" rows="2" placeholder="Detalhes adicionais..."></textarea>
-    </div>
-
-    <!-- BOTÃO -->
     <div class="pb">
       <button class="btn-primary" id="btn-enviar" onclick="enviarCompra()">Registrar Compra</button>
     </div>
-
   </div>
 </div>
 
@@ -311,12 +177,29 @@
 
 <script>
 const CONFIG = {
-  usuario: "admin",
-  senha: "doceria2024",
+  usuario: "Dislene",
+  senha: "docefatia2026",
   webhookCompra: "https://intelly01-n8n.rywggw.easypanel.host/webhook/lancar-compra"
 };
 
-// Login
+const INSUMOS = [
+  "Coco ralado granulado","Suco tang de morango","Ovo Extra","Maizena","Nutella",
+  "Óleo de soja","Óleo de Canola","Bicarbonato de sódio","Margarina Deline",
+  "Bolacha Oreo Original","Corante em gel","Glitter","Trigo","Açúcar","Fermento",
+  "Chocolate em pó 50%","Chocolate branco em barra","Chocolate meio amargo em barra",
+  "Leite em pó Integral","Leite líquido Integral","Chantily","Essência de baunilha",
+  "Leite condensado Integral","Creme de leite"
+];
+
+const EMBALAGENS = [
+  "Saco transparente 11x19,5cm","Fecho 4x11cm","Plástico Filme","Papel Alumínio",
+  "Colher de sobremesa","Papel fotográfico adesivo","Papel Kraft A4","Corda de sisal",
+  "Grampo","Fita de cetim","Saco de bico para confeitar","Saco Kraft P",
+  "G-630 - Fatia","Hamburgueira","Papel toalha Pétalas"
+];
+
+let outrosCount = 0;
+
 function fazerLogin() {
   const u = document.getElementById("login-user").value.trim();
   const s = document.getElementById("login-pass").value;
@@ -329,98 +212,200 @@ function fazerLogin() {
   }
 }
 
-function logout() {
-  sessionStorage.removeItem("auth_compra");
-  location.reload();
-}
+function logout() { sessionStorage.removeItem("auth_compra"); location.reload(); }
 
-document.getElementById("login-pass").addEventListener("keydown", e => {
-  if (e.key === "Enter") fazerLogin();
-});
-
+document.getElementById("login-pass").addEventListener("keydown", e => { if (e.key === "Enter") fazerLogin(); });
 if (sessionStorage.getItem("auth_compra") === "ok") {
   document.getElementById("login-screen").style.display = "none";
   document.getElementById("app").style.display = "block";
 }
 
-// Data padrão = hoje
-const hoje = new Date().toISOString().split("T")[0];
-document.getElementById("data-compra").value = hoje;
+document.getElementById("data-compra").value = new Date().toISOString().split("T")[0];
 
-// Valor display
-function atualizarValor() {
-  const v = parseFloat(document.getElementById("valor").value || 0);
-  document.getElementById("valor-display").textContent = "R$ " + v.toFixed(2).replace(".", ",");
+function renderLista(items, containerId, categoria) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = "";
+  items.forEach((nome, i) => {
+    const id = `${categoria}-${i}`;
+    el.innerHTML += `
+      <div class="item-row" id="row-${id}">
+        <div class="item-check" id="check-${id}" onclick="toggleItem('${id}','${categoria}')"></div>
+        <span class="item-nome">${nome}</span>
+        <div class="item-inputs" id="inputs-${id}">
+          <div style="text-align:center">
+            <div class="input-label">Qtd</div>
+            <input type="number" id="qty-${id}" placeholder="1" min="1" value="1" oninput="atualizarResumo()">
+          </div>
+          <div style="text-align:center">
+            <div class="input-label">R$ unit</div>
+            <input type="number" id="val-${id}" placeholder="0,00" min="0" step="0.01" oninput="atualizarResumo()">
+          </div>
+        </div>
+      </div>`;
+  });
 }
 
-// Enviar
+function toggleItem(id, categoria) {
+  const check = document.getElementById(`check-${id}`);
+  const inputs = document.getElementById(`inputs-${id}`);
+  const row = document.getElementById(`row-${id}`);
+  const isChecked = check.classList.contains("checked");
+  if (isChecked) {
+    check.classList.remove("checked"); inputs.classList.remove("visible"); row.classList.remove("checked");
+  } else {
+    check.classList.add("checked"); inputs.classList.add("visible"); row.classList.add("checked");
+    document.getElementById(`val-${id}`).focus();
+  }
+  atualizarBadge(categoria);
+  atualizarResumo();
+}
+
+function atualizarBadge(categoria) {
+  const checks = document.querySelectorAll(`[id^="check-${categoria}"].checked`);
+  const badge = document.getElementById(`badge-${categoria}`);
+  badge.style.display = checks.length > 0 ? "inline" : "none";
+  badge.textContent = checks.length;
+}
+
+function toggleSection(nome) {
+  document.getElementById(`section-${nome}`).classList.toggle("open");
+  document.getElementById(`toggle-${nome}`).classList.toggle("open");
+}
+
+function adicionarOutro() {
+  const id = `outro-${outrosCount++}`;
+  const div = document.createElement("div");
+  div.className = "outros-item"; div.id = id;
+  div.innerHTML = `
+    <button class="remove-btn" onclick="removerOutro('${id}')">✕</button>
+    <input type="text" placeholder="Descrição (ex: Faca de chef, Papel A4...)" style="margin-bottom:8px">
+    <div class="outros-grid">
+      <select><option value="equipamento">🔧 Equipamento</option><option value="outros">📋 Outros</option></select>
+      <input type="number" placeholder="Qtd" min="1" value="1" oninput="atualizarResumo()">
+      <input type="number" placeholder="R$ unit" min="0" step="0.01" oninput="atualizarResumo()">
+    </div>`;
+  document.getElementById("outros-lista").appendChild(div);
+  atualizarBadgeOutros(); atualizarResumo();
+}
+
+function removerOutro(id) { document.getElementById(id).remove(); atualizarBadgeOutros(); atualizarResumo(); }
+
+function atualizarBadgeOutros() {
+  const items = document.querySelectorAll("#outros-lista .outros-item");
+  const badge = document.getElementById("badge-outros");
+  badge.style.display = items.length > 0 ? "inline" : "none";
+  badge.textContent = items.length;
+}
+
+function atualizarResumo() {
+  const linhas = []; let total = 0;
+  INSUMOS.forEach((nome, i) => {
+    const id = `insumos-${i}`;
+    const check = document.getElementById(`check-${id}`);
+    if (check && check.classList.contains("checked")) {
+      const qty = parseFloat(document.getElementById(`qty-${id}`).value || 1);
+      const val = parseFloat(document.getElementById(`val-${id}`).value || 0);
+      const sub = qty * val;
+      if (sub > 0) { linhas.push({ nome, sub }); total += sub; }
+    }
+  });
+  EMBALAGENS.forEach((nome, i) => {
+    const id = `embalagens-${i}`;
+    const check = document.getElementById(`check-${id}`);
+    if (check && check.classList.contains("checked")) {
+      const qty = parseFloat(document.getElementById(`qty-${id}`).value || 1);
+      const val = parseFloat(document.getElementById(`val-${id}`).value || 0);
+      const sub = qty * val;
+      if (sub > 0) { linhas.push({ nome, sub }); total += sub; }
+    }
+  });
+  document.querySelectorAll("#outros-lista .outros-item").forEach(item => {
+    const inputs = item.querySelectorAll("input[type='number']");
+    const nome = item.querySelector("input[type='text']")?.value || "Item avulso";
+    const qty = parseFloat(inputs[0]?.value || 1);
+    const val = parseFloat(inputs[1]?.value || 0);
+    const sub = qty * val;
+    if (sub > 0) { linhas.push({ nome, sub }); total += sub; }
+  });
+  const box = document.getElementById("resumo-box");
+  if (linhas.length === 0) { box.style.display = "none"; return; }
+  box.style.display = "block";
+  let html = "";
+  linhas.forEach(l => { html += `<div class="resumo-linha"><span>${l.nome}</span><span>R$ ${l.sub.toFixed(2).replace(".",",")}</span></div>`; });
+  document.getElementById("resumo-itens").innerHTML = html;
+  document.getElementById("resumo-total-valor").textContent = "R$ " + total.toFixed(2).replace(".",",");
+}
+
 async function enviarCompra() {
-  const valor      = parseFloat(document.getElementById("valor").value);
-  const descricao  = document.getElementById("descricao").value.trim();
-  const categoria  = document.getElementById("categoria").value;
-  const forma      = document.getElementById("forma-pagamento").value;
-  const data       = document.getElementById("data-compra").value;
-
-  if (!valor || valor <= 0) { showToast("Informe o valor da compra.", true); return; }
-  if (!descricao)           { showToast("Descreva o que foi comprado.", true); return; }
-  if (!categoria)           { showToast("Selecione uma categoria.", true); return; }
-  if (!forma)               { showToast("Selecione a forma de pagamento.", true); return; }
-
+  const forma = document.getElementById("forma-pagamento").value;
+  if (!forma) { showToast("Selecione a forma de pagamento.", true); return; }
+  const itens = [];
+  INSUMOS.forEach((nome, i) => {
+    const id = `insumos-${i}`;
+    const check = document.getElementById(`check-${id}`);
+    if (check && check.classList.contains("checked")) {
+      const qty = parseFloat(document.getElementById(`qty-${id}`).value || 1);
+      const val = parseFloat(document.getElementById(`val-${id}`).value || 0);
+      itens.push({ descricao: nome, categoria: "ingrediente", quantidade: qty, valor_unitario: val, valor: qty * val });
+    }
+  });
+  EMBALAGENS.forEach((nome, i) => {
+    const id = `embalagens-${i}`;
+    const check = document.getElementById(`check-${id}`);
+    if (check && check.classList.contains("checked")) {
+      const qty = parseFloat(document.getElementById(`qty-${id}`).value || 1);
+      const val = parseFloat(document.getElementById(`val-${id}`).value || 0);
+      itens.push({ descricao: nome, categoria: "embalagem", quantidade: qty, valor_unitario: val, valor: qty * val });
+    }
+  });
+  document.querySelectorAll("#outros-lista .outros-item").forEach(item => {
+    const inputs = item.querySelectorAll("input[type='number']");
+    const nome = item.querySelector("input[type='text']")?.value?.trim() || "Item avulso";
+    const cat = item.querySelector("select")?.value || "outros";
+    const qty = parseFloat(inputs[0]?.value || 1);
+    const val = parseFloat(inputs[1]?.value || 0);
+    itens.push({ descricao: nome, categoria: cat, quantidade: qty, valor_unitario: val, valor: qty * val });
+  });
+  if (itens.length === 0) { showToast("Selecione ao menos um item.", true); return; }
+  const total = itens.reduce((s, i) => s + i.valor, 0);
   const payload = {
-    valor,
-    descricao,
-    categoria,
-    forma_pagamento: forma,
     fornecedor: document.getElementById("fornecedor").value.trim(),
-    data_compra: data,
-    observacoes: document.getElementById("obs").value.trim(),
+    forma_pagamento: forma,
+    data_compra: document.getElementById("data-compra").value,
+    total, itens,
     registrado_em: new Date().toISOString()
   };
-
   const btn = document.getElementById("btn-enviar");
-  btn.disabled = true;
-  btn.innerHTML = '<span class="spinner"></span>Registrando...';
-
+  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>Registrando...';
   try {
-    const res = await fetch(CONFIG.webhookCompra, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    });
-
-    if (res.ok) {
-      showToast("✅ Compra registrada!");
-      resetarFormulario();
-    } else {
-      showToast("Erro ao registrar. Tente novamente.", true);
-    }
-  } catch (e) {
-    showToast("Erro de conexão. Verifique o n8n.", true);
-  } finally {
-    btn.disabled = false;
-    btn.innerHTML = "Registrar Compra";
-  }
+    const res = await fetch(CONFIG.webhookCompra, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+    if (res.ok) { showToast("✅ Compra registrada!"); resetarFormulario(); }
+    else { showToast("Erro ao registrar. Tente novamente.", true); }
+  } catch (e) { showToast("Erro de conexão. Verifique o n8n.", true); }
+  finally { btn.disabled = false; btn.innerHTML = "Registrar Compra"; }
 }
 
 function resetarFormulario() {
-  document.getElementById("valor").value = "";
-  document.getElementById("valor-display").textContent = "R$ 0,00";
-  document.getElementById("descricao").value = "";
-  document.getElementById("categoria").value = "";
-  document.getElementById("forma-pagamento").value = "";
   document.getElementById("fornecedor").value = "";
-  document.getElementById("data-compra").value = hoje;
-  document.getElementById("obs").value = "";
+  document.getElementById("forma-pagamento").value = "";
+  document.getElementById("data-compra").value = new Date().toISOString().split("T")[0];
+  document.getElementById("outros-lista").innerHTML = "";
+  document.querySelectorAll(".item-check.checked").forEach(el => el.classList.remove("checked"));
+  document.querySelectorAll(".item-inputs.visible").forEach(el => el.classList.remove("visible"));
+  document.querySelectorAll(".item-row.checked").forEach(el => el.classList.remove("checked"));
+  ["insumos","embalagens","outros"].forEach(c => { document.getElementById(`badge-${c}`).style.display = "none"; });
+  document.getElementById("resumo-box").style.display = "none";
 }
 
 function showToast(msg, isError = false) {
   const t = document.getElementById("toast");
-  t.textContent = msg;
-  t.className = "toast" + (isError ? " error" : "");
-  void t.offsetWidth;
-  t.classList.add("show");
+  t.textContent = msg; t.className = "toast" + (isError ? " error" : "");
+  void t.offsetWidth; t.classList.add("show");
   setTimeout(() => t.classList.remove("show"), 3000);
 }
+
+renderLista(INSUMOS, "section-insumos", "insumos");
+renderLista(EMBALAGENS, "section-embalagens", "embalagens");
 </script>
 </body>
 </html>
